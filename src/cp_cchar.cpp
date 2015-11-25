@@ -20,11 +20,11 @@ int CPCChar::execute() {
         // not enough arguments
         cout << "Error: Not enough arguments!" << endl;
         return 1;
-    } else if (argc == 2) {
+    } else if (argc == 3) {
         // only filenames passed
         i_src = 1;
         i_dst = 2;
-    } else if (argc == 3) {
+    } else if (argc == 4) {
         // flag passed
         i_src = 2;
         i_dst = 3;

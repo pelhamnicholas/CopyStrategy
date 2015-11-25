@@ -11,8 +11,19 @@ class CPStrategy {
     public:
         CPStrategy() { argv = NULL; };
         CPStrategy(char ** argv) { this->argv = argv; };
-        virtual ~CPStrategy() { free(argv); };
+        virtual ~CPStrategy() {};
         virtual int execute() = 0;
 };
+
+/*
+CPStrategy::~CPStrategy() {
+    int i;
+    for (i = 0; argv[i] != NULL; ++i) {
+        free(argv[i]);
+    }
+    free(argv[i]);
+    free(argv);
+}
+*/
 
 #endif
