@@ -16,6 +16,8 @@ class CPStrategy {
 };
 
 /*
+ * I don't understand why I can't free this memory
+ *
 CPStrategy::~CPStrategy() {
     int i;
     for (i = 0; argv[i] != NULL; ++i) {

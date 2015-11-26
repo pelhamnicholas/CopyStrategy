@@ -1,12 +1,22 @@
 #ifndef CP_UNIXCHAR_H
 #define CP_UNIXCHAR_H
 
-class CPUNIXChar {
+#include "cp_strategy.h"
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+class CPUNIXChar : public CPStrategy {
     private:
     public:
         CPUNIXChar() {};
+        CPUNIXChar(char ** argv) : CPStrategy(argv) {};
         ~CPUNIXChar() {};
-        int execute() = 0;
-}
+        virtual int execute();
+};
 
 #endif

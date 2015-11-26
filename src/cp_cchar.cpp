@@ -43,4 +43,6 @@ int CPCChar::execute() {
 
     src.close();
     dst.close();
+
+    return 0;
 }
