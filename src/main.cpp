@@ -59,13 +59,69 @@ int main(void) {
         // null terminate
         cmd[j] = NULL;
 
-        if (strcmp(cmd[0], "ccp") == 0)
-            cp = new CPCChar(cmd);
-        else if (strcmp(cmd[0], "ucp") == 0)
-            cp = new CPUNIXChar(cmd);
-        else if (strcmp(cmd[0], "bcp") == 0)
-            cp = new CPUNIXBuf(cmd);
-        else {
+        // stat for source
+        struct stat sb_src, sb_dst;
+        if (cmd[1][0] == '-') {
+            stat(cmd[2], &sb_src);
+            stat(cmd[3], &sb_dst);
+        } else {
+            stat(cmd[1], &sb_src);
+            stat(cmd[2], &sb_dst);
+        }
+
+        if (S_ISDIR(sb_src.st_mode)) {
+            cout << "cp: Cannot copy a directory!" << endl;
+            continue;
+        }
+        
+        if (S_ISREG(sb_dst.st_mode)) {// || S_ISDIR(sb_dst.st_mode)) {
+            cout << "cp: Destination file already exists!" << endl;
+            continue;
+        }
+
+        if (strcmp(cmd[0], "cp") == 0) {
+            if (cmd[1][0] != '-')
+                cp = new CPUNIXBuf(cmd);
+            else if (cmd[1][1] == 'c')
+                cp = new CPCChar(cmd);
+            else if (cmd[1][1] == 'u')
+                cp = new CPUNIXChar(cmd);
+            else if (cmd[1][1] == 'b')
+                cp = new CPUNIXBuf(cmd);
+            else if (cmd[1][1] == 'v') {
+                for (int i = 0; i < 3; ++i) {
+                    switch (i) {
+                        case 0:
+                            cp = new CPCChar(cmd);
+                            break;
+                        case 1:
+                            cp = new CPUNIXChar(cmd);
+                            break;
+                        case 2:
+                            cp = new CPUNIXBuf(cmd);
+                            break;
+                    }
+                    // init timer
+                    t.start();
+                    
+                    // copy file
+                    if (cp != NULL)
+                        cp->execute();
+
+                    // timer
+                    t.elapsedUserTime(eTime);
+                    cout << eTime << endl;
+
+                    remove(cmd[3]);
+
+                    // free memory
+                    if (cp != NULL) {
+                        delete cp;
+                        cp = NULL;
+                    }
+                }
+            }
+        } else {
             // I don't understand why I can't free this memory
             // explicitly.
             //for (int i = 0; cmd[i] != NULL; ++i)
@@ -73,21 +129,16 @@ int main(void) {
             //free(cmd);
         }
 
-        // init timer
-        t.start();
-        
-        // copy file
-        if (cp != NULL)
-            cp->execute();
+        if (cmd[1][1] != 'v') {
+            // copy file
+            if (cp != NULL)
+                cp->execute();
 
-        // timer
-        t.elapsedUserTime(eTime);
-        cout << eTime << endl;
-
-        // free memory
-        if (cp != NULL) {
-            delete cp;
-            cp = NULL;
+            // free memory
+            if (cp != NULL) {
+                delete cp;
+                cp = NULL;
+            }
         }
     }
 }
