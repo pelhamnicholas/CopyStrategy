@@ -5,31 +5,27 @@
 #
 
 # Create a file with something inside of it to copy
-echo "Output file exists" >> infile
-touch outfile
+#echo "Output file exists" >> infile
+#touch outfile
 
 #
 # Test C++ cp method
 #
 
-echo "ccp infile outfile"
+echo "ccp LICENSE outfile"
 echo "exit"
-{   echo ccp infile outfile ;
+{   echo ccp LICENSE outfile ;
     sleep .5
     echo "exit" ;
 } | bin/lab08
 echo ""
 sleep .5
 
-echo "Output file contents:"
-cat outfile
-echo ""
-
 echo "Difference between input file and output file:"
-grep -Fxvf infile outfile
+grep -Fxvf LICENSE outfile
 echo ""
 
-sleep .5
+sleep 5
 
 rm outfile
 
@@ -37,25 +33,42 @@ rm outfile
 # Test UNIX cp method
 #
 
-echo "ucp infile outfile"
+echo "ucp LICENSE outfile"
 echo "exit"
-{   echo ucp infile outfile ;
+{   echo ucp LICENSE outfile ;
     sleep .5
     echo "exit" ;
 } | bin/lab08
 echo ""
 sleep .5
 
-echo "Output file contents:"
-cat outfile
-echo ""
-
 echo "Difference between input file and output file:"
-grep -Fxvf infile outfile
+grep -Fxvf LICENSE outfile
 echo ""
 
-sleep .5
+sleep 5
 
 rm outfile
 
-rm infile
+#
+# Test UNIX Buffer cp method
+#
+
+echo "bcp LICENSE outfile"
+echo "exit"
+{   echo bcp LICENSE outfile ;
+    sleep .5
+    echo "exit" ;
+} | bin/lab08
+echo ""
+sleep .5
+
+echo "Difference between input file and output file:"
+grep -Fxvf LICENSE outfile
+echo ""
+
+sleep 5
+
+rm outfile
+
+#rm infile

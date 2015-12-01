@@ -6,6 +6,7 @@
 
 #include "cp_cchar.h"
 #include "cp_unixchar.h"
+#include "cp_unixbuf.h"
 #include "cp_strategy.h"
 
 using namespace std;
@@ -55,8 +56,8 @@ int main(void) {
             cp = new CPCChar(cmd);
         else if (strcmp(cmd[0], "ucp") == 0)
             cp = new CPUNIXChar(cmd);
-        //else if (strcmp(cmd[0], "bcp") == 0)
-            //cp = new CPUNIXBuf(cmd);
+        else if (strcmp(cmd[0], "bcp") == 0)
+            cp = new CPUNIXBuf(cmd);
         else {
             // I don't understand why I can't free this memory
             // explicitly.

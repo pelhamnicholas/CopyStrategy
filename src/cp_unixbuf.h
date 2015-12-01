@@ -1,12 +1,22 @@
 #ifndef CP_UNIXBUF_H
 #define CP_UNIXBUF_H
 
-class CPUNIXBuf {
+#include "cp_strategy.h"
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+class CPUNIXBuf : public CPStrategy {
     private:
     public:
         CPUNIXBuf() {};
+        CPUNIXBuf(char ** argv) : CPStrategy(argv) {};
         ~CPUNIXBuf() {};
-        int execute() = 0;
-}
+        virtual int execute();
+};
 
 #endif
