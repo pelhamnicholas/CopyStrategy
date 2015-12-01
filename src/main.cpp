@@ -9,6 +9,9 @@
 #include "cp_unixbuf.h"
 #include "cp_strategy.h"
 
+// for timer
+#include "Timer.h"
+
 using namespace std;
 
 int main(void) {
@@ -16,6 +19,10 @@ int main(void) {
     char * line;
     char ** cmd;
     CPStrategy * cp = NULL;
+
+    // for timer
+    Timer t;
+    double eTime;
 
     while (1) {
 
@@ -66,9 +73,18 @@ int main(void) {
             //free(cmd);
         }
 
+        // init timer
+        t.start();
+        
+        // copy file
         if (cp != NULL)
             cp->execute();
 
+        // timer
+        t.elapsedUserTime(eTime);
+        cout << eTime << endl;
+
+        // free memory
         if (cp != NULL) {
             delete cp;
             cp = NULL;

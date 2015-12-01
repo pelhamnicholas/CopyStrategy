@@ -12,17 +12,19 @@
 # Test C++ cp method
 #
 
-echo "ccp LICENSE outfile"
+echo "ccp /usr/share/dict/american-english outfile"
 echo "exit"
-{   echo ccp LICENSE outfile ;
+{   echo ccp /usr/share/dict/american-english outfile ;
     sleep .5
     echo "exit" ;
 } | bin/lab08
 echo ""
+test outfile && echo "/usr/share/dict/american-english copied to outfile" || echo "/usr/share/dict/american-english was not copied to outfile"
+echo ""
 sleep .5
 
 echo "Difference between input file and output file:"
-grep -Fxvf LICENSE outfile
+grep -Fxvf /usr/share/dict/american-english outfile
 echo ""
 
 sleep 5
@@ -33,17 +35,19 @@ rm outfile
 # Test UNIX cp method
 #
 
-echo "ucp LICENSE outfile"
+echo "ucp /usr/share/dict/american-english outfile"
 echo "exit"
-{   echo ucp LICENSE outfile ;
+{   echo ucp /usr/share/dict/american-english outfile ;
     sleep .5
     echo "exit" ;
 } | bin/lab08
 echo ""
+test outfile && echo "/usr/share/dict/american-english copied to outfile" || echo "/usr/share/dict/american-english was not copied to outfile"
+echo ""
 sleep .5
 
 echo "Difference between input file and output file:"
-grep -Fxvf LICENSE outfile
+grep -Fxvf /usr/share/dict/american-english outfile
 echo ""
 
 sleep 5
@@ -54,17 +58,19 @@ rm outfile
 # Test UNIX Buffer cp method
 #
 
-echo "bcp LICENSE outfile"
+echo "bcp /usr/share/dict/american-english outfile"
 echo "exit"
-{   echo bcp LICENSE outfile ;
+{   echo bcp /usr/share/dict/american-english outfile ;
     sleep .5
     echo "exit" ;
 } | bin/lab08
 echo ""
+test outfile && echo "/usr/share/dict/american-english copied to outfile" || echo "/usr/share/dict/american-english was not copied to outfile"
+echo ""
 sleep .5
 
 echo "Difference between input file and output file:"
-grep -Fxvf LICENSE outfile
+grep -Fxvf /usr/share/dict/american-english outfile
 echo ""
 
 sleep 5
