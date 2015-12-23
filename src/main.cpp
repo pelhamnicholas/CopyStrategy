@@ -34,7 +34,7 @@ int main(int argc, char * argv[]) {
         return 1;
     }
     
-    if (S_ISREG(sb_dst.st_mode)) {// || S_ISDIR(sb_dst.st_mode)) {
+    if (S_ISREG(sb_dst.st_mode) || S_ISDIR(sb_dst.st_mode)) {
         cout << "cp: Destination file already exists!" << endl;
         return 1;
     }
